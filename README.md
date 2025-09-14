@@ -33,3 +33,14 @@ Cela fait partie des bonne pratique.
 Taille de l'image : 261MB
 
 Temps de build : 16.7s
+
+## V2
+
+J'ai repéré une mauvaise pratique sur l'ordre des instructions du dockerfile.
+Dans un premier temps il n'est pas nécéssaire de copié les node modules car il seront télécharger dans le npm install.
+
+Ensuite l'ordre des dépendances joue sur le nombre d'étape qui seront exécuté à chaque rebuild, les étapes qui change rarement (installation des dépendances) doivent placé avant la copy du code de l'application (l'élément qui change le plus régullièrement). De cette manière on les dépendances ne seront pas réinstallé à chaque modification du code source.
+
+Cette modification n'a pour but de diminué la taille de l'image mais de respecter les bonne pratique pour diminuer le temps de rebuild.
+
+Taille de l'image : 267MB
