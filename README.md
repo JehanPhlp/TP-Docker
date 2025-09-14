@@ -30,6 +30,8 @@ FROM node:24-alpine
 
 Cela fait partie des bonne pratique.
 
+Note : je n'ai pas choisi la verison de node slim parce qu'il y a des dificulté concernant la commande adduser (utile pour la suite)
+
 Taille de l'image : 261MB
 
 Temps de build : 16.7s
@@ -57,3 +59,26 @@ Changement concernant l'utilisateur dans le conteneur. Il était en root précé
 La bonne pratique est d'utiliser un utilisateur non-privillégié.
 
 Taille de l'image : 263MB
+
+## V5 (Non fonctionnel)
+
+J'ai essayé de séparer la partie runtime de la partie build pour optimiser un maximum la taille de l'image et les performance.
+
+Pour cela j'ai essayé d'utiliser le build multistage de docker, mais cela n'a pas fonctionner.
+
+```Dockerfile
+FROM node:24-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY server.js ./
+ENV NODE_ENV=production
+RUN npm run build
+
+FROM nginx:1.29-alpine-slim AS prod
+EXPOSE 3000/tcp 4000/tcp 5000/tcp
+COPY --from=builder /app /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/nginx.conf
+```
+
+Taille de l'image : 36.3MB
