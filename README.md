@@ -44,3 +44,9 @@ Ensuite l'ordre des dépendances joue sur le nombre d'étape qui seront exécut�
 Cette modification n'a pour but de diminué la taille de l'image mais de respecter les bonne pratique pour diminuer le temps de rebuild.
 
 Taille de l'image : 267MB
+
+## V3
+
+J'ai choisi d'optiser cette image pour la prod. J'ai donc changer la variable d'environnement et changer le npm install par npm ci --omit=dev pour télécharger uniquement les dépendances nécéssaire pour la prod et ommettre celles pour le dev.
+
+Taille de l'image : 263MB
