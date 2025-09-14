@@ -50,3 +50,10 @@ Taille de l'image : 267MB
 J'ai choisi d'optiser cette image pour la prod. J'ai donc changer la variable d'environnement et changer le npm install par npm ci --omit=dev pour télécharger uniquement les dépendances nécéssaire pour la prod et ommettre celles pour le dev.
 
 Taille de l'image : 263MB
+
+## V4
+
+Changement concernant l'utilisateur dans le conteneur. Il était en root précédemment, ce qui est une faille de sécurité.
+La bonne pratique est d'utiliser un utilisateur non-privillégié.
+
+Taille de l'image : 263MB
