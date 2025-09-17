@@ -78,7 +78,7 @@ RUN npm run build
 FROM nginx:1.29-alpine-slim AS prod
 EXPOSE 3000/tcp 4000/tcp 5000/tcp
 COPY --from=builder /app /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY ./nginx.conf /etc/nginx/conf.d/nginx.conf
 ```
 
 Taille de l'image : 36.3MB
